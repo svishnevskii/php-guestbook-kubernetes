@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress
+  #annotations:
+    #nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    #nginx.ingress.kubernetes.io/rewrite-target: "/"
+spec:
+  rules:
+  - host: learn.kube
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: my-service
+          servicePort: 80

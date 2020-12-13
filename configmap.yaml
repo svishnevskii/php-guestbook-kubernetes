@@ -1,0 +1,28 @@
+# First, create a ConfigMap whose contents are used
+# as the nginx.conf file in the web server.
+# This server uses /var/www/html as its
+# root document directory. When the server gets a
+# request for *.php, it will forward that request
+# to our PHP-FPM container.
+
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: my-configmap
+data:
+  nginx.conf: |
+      server {
+        listen 80 default_server;
+        #listen [::]:80 default_server;
+
+        #index index.php index.html;
+
+        # Set nginx to serve files from the shared volume!
+        #root /var/www/html;
+        server_name _;
+
+        location / {
+          return 200 '$hostname\n'; 
+          #try_files $uri $uri/ /index.php?$query_string;
+        }
+      }
