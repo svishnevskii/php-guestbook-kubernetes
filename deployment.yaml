@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: my-deployment
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: my-app
@@ -30,7 +30,7 @@ spec:
           lifecycle:
             postStart:
               exec:
-                command: ["/bin/sh", "-c", "ln -s /app/hello.php /var/www/html/"]
+                command: ["/bin/sh", "-c", "ln -s -f /app/hello.php /var/www/html/"]
         - image: svishnevskii/nginx:v1
           name: nginx
           ports:
